@@ -1,4 +1,4 @@
-import 'package:coin_flip/mainApp.dart';
+import 'package:coin_flip/main_app.dart';
 import 'package:flutter/material.dart';
 
 main() {
