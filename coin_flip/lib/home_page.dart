@@ -23,7 +23,6 @@ class HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Image(image: AssetImage('images/cara.png'),),
 
               Text(
                 'Coin Flip',
