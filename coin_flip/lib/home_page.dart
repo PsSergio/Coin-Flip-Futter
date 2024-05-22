@@ -1,7 +1,6 @@
-import 'package:coin_flip/default_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:coin_flip/two_players.dart';
 import 'package:coin_flip/single_player.dart';
+import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -38,10 +37,16 @@ class HomePageState extends State<HomePage> {
                 height: 200,
               ),
 
-              DefaultButtonForApp(
+              HomeButtonForApp(
                 text: 'SinglePlayer',
-                // func: navigateForPage(SinglePlayerPage(), context),
+                page: SinglePlayerPage(),
               ),
+
+              Container(
+                height: 20,
+              ),
+              
+              HomeButtonForApp(text: '2 Players', page: TwoPlayersPage()),
 
               Container(
                 height: 20,
@@ -52,9 +57,27 @@ class HomePageState extends State<HomePage> {
   }
 }
 
-// void navigateForPage(Page, context){
-//   Navigator.push(
-//     context,
-//     MaterialPageRoute(builder:  (context) => Page())
-//   );
-// }
+class HomeButtonForApp extends StatelessWidget {
+  final String text;
+  final Widget page;
+
+  const HomeButtonForApp({super.key, required this.text, required this.page});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.all(20),
+          fixedSize: Size(300, 70),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+      },
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
+}
