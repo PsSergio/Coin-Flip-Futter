@@ -37,7 +37,7 @@ class HomePageState extends State<HomePage> {
               ),
 
               HomeButtonForApp(
-                text: 'SinglePlayer',
+                text: 'Single Player',
                 page: SinglePlayerPage(),
               ),
 
@@ -45,7 +45,7 @@ class HomePageState extends State<HomePage> {
                 height: 20,
               ),
               
-              HomeButtonForApp(text: '2 Players', page: TwoPlayersPage()),
+              HomeButtonForApp(text: 'MultiPlayer', page: TwoPlayersPage()),
 
               Container(
                 height: 20,
@@ -75,7 +75,7 @@ class HomeButtonForApp extends StatelessWidget {
       },
       child: Text(
         text,
-        style: TextStyle(fontSize: 20),
+        style: TextStyle(fontSize: 20, fontFamily: 'Cocogoose', fontWeight: FontWeight.w300),
       ),
     );
   }

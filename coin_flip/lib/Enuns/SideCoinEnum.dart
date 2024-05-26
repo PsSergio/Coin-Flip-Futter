@@ -1,0 +1,7 @@
+enum SideCoinEnum{
+
+  Coroa,
+
+  Cara
+
+}
