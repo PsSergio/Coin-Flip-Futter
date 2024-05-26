@@ -55,7 +55,8 @@ class SinglePlayerPageState extends State<SinglePlayerPage> {
                     'Escolher o lado',
                     style: TextStyle(fontSize: 20, fontFamily: 'Cocogoose'),
                   ),
-                  onPressed: () => showCupertinoModalPopup(
+                  onPressed: () => 
+                      showCupertinoModalPopup(
                       context: context,
                       builder: (_) => SizedBox(
                             width: double.infinity,
