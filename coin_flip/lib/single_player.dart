@@ -1,6 +1,7 @@
 import 'package:coin_flip/Models/CoinModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class SinglePlayerPage extends StatefulWidget {
   @override
@@ -9,10 +10,26 @@ class SinglePlayerPage extends StatefulWidget {
   }
 }
 
-class SinglePlayerPageState extends State<SinglePlayerPage> {
+class SinglePlayerPageState extends State<SinglePlayerPage>
+    with SingleTickerProviderStateMixin {
   String selectedValue = 'Cara';
 
   List possibleValues = ['Cara', 'Coroa'];
+
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Durations.extralong4);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +46,12 @@ class SinglePlayerPageState extends State<SinglePlayerPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-
-            Image(
-              image: AssetImage('images/cara.png'),
-              width: 200,
-            ),
-
+            _coinAnimation(),
             Text(
               selectedValue,
               style: TextStyle(
                   color: Colors.black, fontSize: 30, fontFamily: 'Cocogoose'),
             ),
-            
             Column(
               children: [
                 ElevatedButton(
@@ -55,8 +66,7 @@ class SinglePlayerPageState extends State<SinglePlayerPage> {
                     'Escolher o lado',
                     style: TextStyle(fontSize: 20, fontFamily: 'Cocogoose'),
                   ),
-                  onPressed: () => 
-                      showCupertinoModalPopup(
+                  onPressed: () => showCupertinoModalPopup(
                       context: context,
                       builder: (_) => SizedBox(
                             width: double.infinity,
@@ -67,7 +77,9 @@ class SinglePlayerPageState extends State<SinglePlayerPage> {
                               scrollController:
                                   FixedExtentScrollController(initialItem: 0),
                               children: [
-                                Text('Cara',),
+                                Text(
+                                  'Cara',
+                                ),
                                 Text('Coroa'),
                               ],
                               onSelectedItemChanged: (int value) {
@@ -82,11 +94,21 @@ class SinglePlayerPageState extends State<SinglePlayerPage> {
                   height: 10,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    
+                    var ticker = _controller.forward();
+                    await ticker.whenComplete(() {
+                      _controller.reset();
+                    });
 
-                    CoinModel newCoin = new CoinModel(selectedSide: selectedValue);
+                    CoinModel newCoin = CoinModel(selectedSide: selectedValue);
+
                     bool resultsPlay = newCoin.validatesUserPlay();
-                    print(newCoin.selectedSide + " - " + newCoin.sortedSide + "\nResultado: ${resultsPlay}");
+                    print(newCoin.selectedSide +
+                        " - " +
+                        newCoin.sortedSide +
+                        "\nResultado: ${resultsPlay}");
+
 
                   },
                   child: Text("Jogar",
@@ -96,18 +118,31 @@ class SinglePlayerPageState extends State<SinglePlayerPage> {
                         fontFamily: 'Cocogoose',
                       )),
                   style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(20),
-                      fixedSize: Size(300, 70),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      backgroundColor: Color.fromRGBO(248, 72, 72, 0.757),
-                      ),
-                      
+                    padding: EdgeInsets.all(20),
+                    fixedSize: Size(300, 70),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    backgroundColor: Color.fromRGBO(248, 72, 72, 0.757),
+                  ),
                 ),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _coinAnimation() {
+    return Container(
+      child: RotatedBox(
+        child: Lottie.asset(
+          'assets/animations/coinFlipCustomFinal.json',
+          controller: _controller,
+          width: 250,
+          repeat: false,
+        ),
+        quarterTurns: 2,
       ),
     );
   }
