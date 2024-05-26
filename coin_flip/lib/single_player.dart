@@ -84,9 +84,8 @@ class SinglePlayerPageState extends State<SinglePlayerPage> {
                   onPressed: () {
 
                     CoinModel newCoin = new CoinModel(selectedSide: selectedValue);
-                    newCoin.validatesUserPlay();
-                    print(selectedValue);
-                    print(newCoin.selectedSide + " - " + newCoin.sortedSide);
+                    bool resultsPlay = newCoin.validatesUserPlay();
+                    print(newCoin.selectedSide + " - " + newCoin.sortedSide + "\nResultado: ${resultsPlay}");
 
                   },
                   child: Text("Jogar",

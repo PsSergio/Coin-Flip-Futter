@@ -12,9 +12,9 @@ class CoinModel{
   String sortSide(){
 
     int numRandon = Random().nextInt(2);
-    List<SideCoinEnum> sides = SideCoinEnum.values;
+    // List<SideCoinEnum> sides = SideCoinEnum.values;
 
-    return sides[numRandon].toString();
+    return (SideCoinEnum.values[numRandon].name).toString();
 
   }
 
