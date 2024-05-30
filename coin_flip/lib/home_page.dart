@@ -1,4 +1,3 @@
-import 'package:coin_flip/two_players.dart';
 import 'package:coin_flip/single_player.dart';
 import 'package:flutter/material.dart';
 
@@ -40,12 +39,6 @@ class HomePageState extends State<HomePage> {
                 text: 'Single Player',
                 page: SinglePlayerPage(),
               ),
-
-              Container(
-                height: 20,
-              ),
-              
-              HomeButtonForApp(text: 'MultiPlayer', page: TwoPlayersPage()),
 
               Container(
                 height: 20,
